@@ -49,7 +49,7 @@ class Ddns(object):
 		for i in record:
 			if(i["value"]==new_ip):
 				log = "%s.%s 指向的ip地址未发生变化" %(i["name"],i["domain"])
-				self.wirte_log(log)
+				self.write_log(log)
 				continue
 			d=self.data.copy()
 			d.update({"domain":i["domain"],"record_id":i["id"],"sub_domain":i["name"],"record_type":"A","record_line":i["line"],"value":new_ip})
@@ -58,9 +58,9 @@ class Ddns(object):
 				log = "%s.%s 成功被指向新的ip地址：%s" % (i["name"],i["domain"],new_ip)
 			else:
 				log = r["status"]["message"]
-			self.wirte_log(log)
+			self.write_log(log)
 
-	def wirte_log(self,content):
+	def write_log(self,content):
 		t=time.strftime("%Y-%m-%d %H:%M:%S", time.localtime())
 		content=t+"\t"+content+"\n"
 		with open("result.log","a+") as f:
