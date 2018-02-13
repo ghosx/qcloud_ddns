@@ -12,7 +12,7 @@ class DDNS:
 		self.api='https://dnsapi.cn/'
 		self.ip='http://members.3322.org/dyndns/getip'
 		self.data={"login_token":self.login_token,"format":self.format,"lang":self.lang}
-		self.path=os.getcwd()
+		self.path=os.path.dirname(os.path.realpath(__file__))
 		self.domain_list=self.load()
 
 	def load(self):
