@@ -1,15 +1,10 @@
 import requests
 import json
 import time
+import os
 
-class Ddns(object):
-	"""
-	Ddns For Raspberry Pi
-	Author:heeeepin@gmail.com
-	Create:2018/2/11
-	"""
-	def __init__(self, Id, Token):
-		super(Ddns, self).__init__()
+class DDNS:
+	def __init__(self,Id,Token):
 		self.login_token=str(Id)+","+str(Token)
 		self.format="json"
 		self.lang="cn"
@@ -17,11 +12,12 @@ class Ddns(object):
 		self.api='https://dnsapi.cn/'
 		self.ip='http://members.3322.org/dyndns/getip'
 		self.data={"login_token":self.login_token,"format":self.format,"lang":self.lang}
+		self.path=os.getcwd()
 		self.domain_list=self.load()
-		self.log='log.txt'
 
 	def load(self):
-		with open('config.json') as f:
+		file=self.path+'/config.json'
+		with open(file,'r') as f:
 			data=json.load(f)
 		return data
 
@@ -63,5 +59,6 @@ class Ddns(object):
 	def write_log(self,content):
 		t=time.strftime("%Y-%m-%d %H:%M:%S", time.localtime())
 		content=t+"\t"+content+"\n"
-		with open("result.log","a+") as f:
+		file=self.path+'/result.log'
+		with open(file,"a+") as f:
 			f.write(content)
